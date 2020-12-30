@@ -9,9 +9,7 @@ TRUE="true"
 
 isUpdate()
 {
-    ls -la ${OSSEC_INIT} > /dev/null 2>&1
     if [ $? = 0 ]; then
-        . ${OSSEC_INIT}
         if [ "X$WAZUH_HOME" = "X" ]; then
             echo "# ($FUNCNAME) ERROR: The variable DIRECTORY wasn't set" 1>&2
             echo "${FALSE}"
@@ -29,8 +27,6 @@ isUpdate()
 
 doUpdatecleanup()
 {
-    . ${OSSEC_INIT}
-
     if [ "X$WAZUH_HOME" = "X" ]; then
         echo "# ($FUNCNAME) ERROR: The variable DIRECTORY wasn't set." 1>&2
         echo "${FALSE}"
@@ -49,7 +45,6 @@ doUpdatecleanup()
 
 getPreinstalled()
 {
-    . ${OSSEC_INIT}
 
 	echo $TYPE
     return 0;
@@ -57,27 +52,24 @@ getPreinstalled()
 
 getPreinstalledDir()
 {
-    . ${OSSEC_INIT}
     echo "$WAZUH_HOME"
     return 0;
 }
 
 getPreinstalledVersion()
 {
-    . ${OSSEC_INIT}
     echo $VERSION
 }
 
 getPreinstalledName()
 {
     NAME=""
-    . ${OSSEC_INIT}
     echo $NAME
 }
 
 UpdateStartOSSEC()
 {
-   . ${OSSEC_INIT}
+
 
    if [ "X$TYPE" != "Xagent" ]; then
        TYPE="manager"
@@ -94,9 +86,9 @@ UpdateStartOSSEC()
 
 UpdateStopOSSEC()
 {
-    if [ -f ${OSSEC_INIT} ]
+    if [ 1 ]
     then
-        . ${OSSEC_INIT}
+
 
         MAJOR_VERSION=`echo ${VERSION} | cut -f1 -d'.' | cut -f2 -d'v'`
 
